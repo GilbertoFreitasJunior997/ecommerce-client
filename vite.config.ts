@@ -4,5 +4,11 @@ import { defineConfig } from "vite";
 import viteTSconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [TanStackRouterVite({}), react(), viteTSconfigPaths()],
+  plugins: [
+    TanStackRouterVite({
+      routeToken: "layout",
+    }),
+    react(),
+    viteTSconfigPaths(),
+  ],
 });

@@ -7,6 +7,8 @@ export const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
       url: trpcServerURL,
+      fetch: (url, options) =>
+        fetch(url, { ...options, credentials: "include" }),
     }),
   ],
 });

@@ -1,13 +1,10 @@
-import { trpc } from "@/lib/trpc";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
-  component: HomePage,
+  component: () => null,
+  beforeLoad: () => {
+    throw redirect({
+      to: "/app",
+    });
+  },
 });
-
-function HomePage() {
-  const { data } = trpc.greeting.useQuery();
-  console.info(data);
-
-  return <div>Hello world</div>;
-}
