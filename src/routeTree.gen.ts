@@ -18,7 +18,8 @@ import { Route as AppIndexImport } from './routes/app/index'
 import { Route as AppUserLayoutImport } from './routes/app/user/layout'
 import { Route as AuthSignUpIndexImport } from './routes/auth/sign-up/index'
 import { Route as AuthSignInIndexImport } from './routes/auth/sign-in/index'
-import { Route as AppUserDashboardIndexImport } from './routes/app/user/dashboard/index'
+import { Route as AppUserProductsIndexImport } from './routes/app/user/products/index'
+import { Route as AppProductsSearchIndexImport } from './routes/app/products/$search/index'
 
 // Create/Update Routes
 
@@ -64,10 +65,16 @@ const AuthSignInIndexRoute = AuthSignInIndexImport.update({
   getParentRoute: () => AuthLayoutRoute,
 } as any)
 
-const AppUserDashboardIndexRoute = AppUserDashboardIndexImport.update({
-  id: '/dashboard/',
-  path: '/dashboard/',
+const AppUserProductsIndexRoute = AppUserProductsIndexImport.update({
+  id: '/products/',
+  path: '/products/',
   getParentRoute: () => AppUserLayoutRoute,
+} as any)
+
+const AppProductsSearchIndexRoute = AppProductsSearchIndexImport.update({
+  id: '/products/$search/',
+  path: '/products/$search/',
+  getParentRoute: () => AppLayoutRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -123,11 +130,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignUpIndexImport
       parentRoute: typeof AuthLayoutImport
     }
-    '/app/user/dashboard/': {
-      id: '/app/user/dashboard/'
-      path: '/dashboard'
-      fullPath: '/app/user/dashboard'
-      preLoaderRoute: typeof AppUserDashboardIndexImport
+    '/app/products/$search/': {
+      id: '/app/products/$search/'
+      path: '/products/$search'
+      fullPath: '/app/products/$search'
+      preLoaderRoute: typeof AppProductsSearchIndexImport
+      parentRoute: typeof AppLayoutImport
+    }
+    '/app/user/products/': {
+      id: '/app/user/products/'
+      path: '/products'
+      fullPath: '/app/user/products'
+      preLoaderRoute: typeof AppUserProductsIndexImport
       parentRoute: typeof AppUserLayoutImport
     }
   }
@@ -136,11 +150,11 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AppUserLayoutRouteChildren {
-  AppUserDashboardIndexRoute: typeof AppUserDashboardIndexRoute
+  AppUserProductsIndexRoute: typeof AppUserProductsIndexRoute
 }
 
 const AppUserLayoutRouteChildren: AppUserLayoutRouteChildren = {
-  AppUserDashboardIndexRoute: AppUserDashboardIndexRoute,
+  AppUserProductsIndexRoute: AppUserProductsIndexRoute,
 }
 
 const AppUserLayoutRouteWithChildren = AppUserLayoutRoute._addFileChildren(
@@ -150,11 +164,13 @@ const AppUserLayoutRouteWithChildren = AppUserLayoutRoute._addFileChildren(
 interface AppLayoutRouteChildren {
   AppUserLayoutRoute: typeof AppUserLayoutRouteWithChildren
   AppIndexRoute: typeof AppIndexRoute
+  AppProductsSearchIndexRoute: typeof AppProductsSearchIndexRoute
 }
 
 const AppLayoutRouteChildren: AppLayoutRouteChildren = {
   AppUserLayoutRoute: AppUserLayoutRouteWithChildren,
   AppIndexRoute: AppIndexRoute,
+  AppProductsSearchIndexRoute: AppProductsSearchIndexRoute,
 }
 
 const AppLayoutRouteWithChildren = AppLayoutRoute._addFileChildren(
@@ -183,7 +199,8 @@ export interface FileRoutesByFullPath {
   '/app/': typeof AppIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
   '/auth/sign-up': typeof AuthSignUpIndexRoute
-  '/app/user/dashboard': typeof AppUserDashboardIndexRoute
+  '/app/products/$search': typeof AppProductsSearchIndexRoute
+  '/app/user/products': typeof AppUserProductsIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -193,7 +210,8 @@ export interface FileRoutesByTo {
   '/app': typeof AppIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
   '/auth/sign-up': typeof AuthSignUpIndexRoute
-  '/app/user/dashboard': typeof AppUserDashboardIndexRoute
+  '/app/products/$search': typeof AppProductsSearchIndexRoute
+  '/app/user/products': typeof AppUserProductsIndexRoute
 }
 
 export interface FileRoutesById {
@@ -205,7 +223,8 @@ export interface FileRoutesById {
   '/app/': typeof AppIndexRoute
   '/auth/sign-in/': typeof AuthSignInIndexRoute
   '/auth/sign-up/': typeof AuthSignUpIndexRoute
-  '/app/user/dashboard/': typeof AppUserDashboardIndexRoute
+  '/app/products/$search/': typeof AppProductsSearchIndexRoute
+  '/app/user/products/': typeof AppUserProductsIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -218,7 +237,8 @@ export interface FileRouteTypes {
     | '/app/'
     | '/auth/sign-in'
     | '/auth/sign-up'
-    | '/app/user/dashboard'
+    | '/app/products/$search'
+    | '/app/user/products'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -227,7 +247,8 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth/sign-in'
     | '/auth/sign-up'
-    | '/app/user/dashboard'
+    | '/app/products/$search'
+    | '/app/user/products'
   id:
     | '__root__'
     | '/'
@@ -237,7 +258,8 @@ export interface FileRouteTypes {
     | '/app/'
     | '/auth/sign-in/'
     | '/auth/sign-up/'
-    | '/app/user/dashboard/'
+    | '/app/products/$search/'
+    | '/app/user/products/'
   fileRoutesById: FileRoutesById
 }
 
@@ -275,7 +297,8 @@ export const routeTree = rootRoute
       "filePath": "app/layout.tsx",
       "children": [
         "/app/user",
-        "/app/"
+        "/app/",
+        "/app/products/$search/"
       ]
     },
     "/auth": {
@@ -289,7 +312,7 @@ export const routeTree = rootRoute
       "filePath": "app/user/layout.tsx",
       "parent": "/app",
       "children": [
-        "/app/user/dashboard/"
+        "/app/user/products/"
       ]
     },
     "/app/": {
@@ -304,8 +327,12 @@ export const routeTree = rootRoute
       "filePath": "auth/sign-up/index.tsx",
       "parent": "/auth"
     },
-    "/app/user/dashboard/": {
-      "filePath": "app/user/dashboard/index.tsx",
+    "/app/products/$search/": {
+      "filePath": "app/products/$search/index.tsx",
+      "parent": "/app"
+    },
+    "/app/user/products/": {
+      "filePath": "app/user/products/index.tsx",
       "parent": "/app/user"
     }
   }

@@ -38,7 +38,7 @@ function RouteComponent() {
           <ShoppingBagIcon className="size-8 fill-white" />
         </div>
 
-        <h1 className="text-3xl font-bold mb-3"> Create an account </h1>
+        <h1 className="text-3xl font-bold mb-3 w-max"> Create an account </h1>
         <h4 className="text-muted-foreground mb-3 text-sm">
           Start shopping with us!
         </h4>

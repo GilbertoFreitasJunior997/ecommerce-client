@@ -7,3 +7,9 @@ export function cn(...inputs: ClassValue[]) {
 
 export const uppercaseFirstLetter = (str: string) =>
   `${str.substring(0, 1).toUpperCase()}${str.substring(1)}`;
+
+export const getSearchString = (str: string) =>
+  str
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase();

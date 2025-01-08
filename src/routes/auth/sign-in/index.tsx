@@ -1,6 +1,7 @@
 import { Button } from "@/components/button";
 import { Form } from "@/components/form";
 import { Input } from "@/components/input";
+import { appConfig } from "@/lib/app-config";
 import { useZodForm } from "@/lib/hooks/use-zod-form";
 import { trpc } from "@/lib/trpc";
 import { useSignIn } from "@/lib/utils/auth.utils";
@@ -37,9 +38,11 @@ function RouteComponent() {
           <ShoppingBagIcon className="size-8 fill-white" />
         </div>
 
-        <h1 className="text-3xl font-bold mb-3"> Sign in to your account </h1>
+        <h1 className="text-3xl font-bold mb-3 w-max">
+          Sign in to your account
+        </h1>
         <h4 className="text-muted-foreground mb-3 text-sm">
-          Welcome back to DiverseBuy
+          Welcome back to {appConfig.name}
         </h4>
       </section>
 

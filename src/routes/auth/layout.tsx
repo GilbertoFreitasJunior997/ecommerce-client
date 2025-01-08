@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 export const Route = createFileRoute("/auth")({
   component: RouteComponent,
-  beforeLoad: () => {
+  loader: () => {
     const user = useAuth.getState().user;
 
     if (!user) {

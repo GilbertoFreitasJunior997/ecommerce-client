@@ -1,7 +1,7 @@
 import { trpc } from "@/lib/trpc";
 import { httpBatchLink } from "@trpc/client";
 
-const trpcServerURL = import.meta.env.VITE_TRPC_SERVER_URL ?? "";
+const trpcServerURL = `${import.meta.env.VITE_SERVER_URL ?? ""}/trpc`;
 
 export const trpcClient = trpc.createClient({
   links: [

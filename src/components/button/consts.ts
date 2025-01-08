@@ -20,7 +20,7 @@ export const buttonVariants = cva(
         default: "h-8 px-4",
         sm: "h-6 rounded-md px-3 text-xs",
         lg: "h-9 rounded-md px-8",
-        icon: "size-7",
+        icon: "size-7 rounded-full",
       },
       loading: {
         true: "opacity-50 cursor-not-allowed",

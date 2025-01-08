@@ -8,7 +8,7 @@ export const Sonner = (props: SonnerProps) => {
     <Toaster
       theme={"light"}
       className="toaster group"
-      position="bottom-right"
+      position="bottom-left"
       toastOptions={{
         classNames: {
           toast:
